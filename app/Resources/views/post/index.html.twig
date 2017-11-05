@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block header_button %}
+    <a href="{{ path('_new') }}">
+        <button class="btn btn-success my-2 my-sm-0" type="button">Add post</button>
+    </a>
+{% endblock %}
+
+{% block body %}
+
+    <main role="main" class="container">
+
+        {% for post in posts %}
+            <div class="post card bg-light m-3">
+
+                <h3 class="post-header m-3">
+                    {{ post.title }}
+                </h3>
+                <p class="post-content ml-3 mb-3">
+                    {{ post.content }}
+                </p>
+                <a href="{{ path('_show', {'id': post.id}) }}">
+                    <button type="button" class="btn btn-sm btn-outline-info m-3">See more...</button>
+                </a>
+            </div>
+        {% endfor %}
+
+    </main>
+
+{% endblock %}

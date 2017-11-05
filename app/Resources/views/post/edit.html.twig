@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block header_button %}
+    <button class="btn btn-info my-2 my-sm-0" type="button">Posts</button>
+{% endblock %}
+
+{% block body %}
+
+    <main role="main" class="container d-flex flex-column">
+        <div class="post card bg-light m-3">
+
+            <h2 class="text-center m-3">Post edit</h2>
+
+            <div class="m-3">
+                {{ form_start(edit_form) }}
+
+                {{ form_widget(edit_form) }}
+                <button type="submit" class="btn btn-success">Save</button>
+                {{ form_end(edit_form) }}
+            </div>
+
+        </div>
+    </main>
+
+{% endblock %}
