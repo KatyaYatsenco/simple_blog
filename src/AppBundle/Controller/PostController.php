@@ -47,12 +47,12 @@ class PostController extends Controller
 //        $dql = "SELECT a FROM AppBundle:Post a";
 //        $query = $em2->createQuery($dql);
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $posts, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            2/*limit per page*/
-        );
+//        $paginator = $this->get('knp_paginator');
+//        $pagination = $paginator->paginate(
+//            $posts, /* query NOT result */
+//            $request->query->getInt('page', 1)/*page number*/,
+//            2/*limit per page*/
+//        );
 
         // parameters to template
 //        return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
@@ -60,7 +60,6 @@ class PostController extends Controller
             'post/index.html.twig',
             array(
                 'posts' => $posts,
-                'pagination' => $pagination,
             )
         );
     }
