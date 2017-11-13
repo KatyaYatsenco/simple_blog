@@ -18,3 +18,5 @@
 .idea
 /tests
 /phpunit.xml.dist
+/htmlSandbox
+.gitignore
