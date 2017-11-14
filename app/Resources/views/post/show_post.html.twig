@@ -23,13 +23,13 @@
                     {{ form_end(delete_form) }}
                 </div>
             </div>
-            {% for comment in comments %}
 
-                <div class="card bg-light m-3">
-                    <h4 class="mt-3 mr-3 ml-3">{{ comment.title }}</h4>
-                    <p class="mr-3 ml-3">{{ comment.content }}</p>
-                </div>
-            {% endfor %}
+            {% block comment %}
+                <h3 class="m-auto">Comments:</h3>
+
+                {{ render(controller("AppBundle:Comment:_shownComments",{"post": post})) }}
+            {% endblock %}
+
         {% endblock %}
 
     </main>

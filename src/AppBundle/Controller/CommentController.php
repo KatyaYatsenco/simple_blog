@@ -19,24 +19,56 @@ class CommentController extends Controller
     /**
      * List all comment entities.
      *
-     * @Route("/post/{id}/comments", name="post_comments")
      * @Method("GET")
      * @param Post $post
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function shownCommentsAction(Post $post)
+    public function _shownCommentsAction(Post $post)
     {
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('AppBundle:Comment')->findBy(
             ['post' => $post]
         );
 
-        $deleteForm = $this->createDeleteForm($post);
-
         return $this->render(
             'post/show_comments.html.twig',
             array(
                 'comments' => $comments,
+            )
+        );
+    }
+
+    /**
+     * Creates a new comment entity
+     *
+     * @Route("/post/{id}/new_comment", name="new_comment")
+     * @Method({"GET","POST"})
+     * @param Request $request
+     * @param Post $post
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function newCommentAction(Request $request, Post $post)
+    {
+        $comment = new Comment();
+        $comment->setPost($post);
+        $form = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $form->handleRequest($request);
+
+        $deleteForm = $this->createDeleteForm($post);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+        }
+
+        return $this->render(
+            'post/new_comment.html.twig',
+            array(
+                'comment' => $comment,
+                'form' => $form->createView(),
                 'post' => $post,
                 'delete_form' => $deleteForm->createView(),
             )
@@ -57,42 +89,4 @@ class CommentController extends Controller
             ->setMethod('DELETE')
             ->getForm();
     }
-
-    /**
-     * Creates a new comment entity
-     *
-     * @Route("/post/{id}/new_comment", name="new_comment")
-     * @Method({"GET","POST"})
-     * @param Post $post
-     */
-    public function newCommentAction(Request $request, Post $post)
-    {
-        $comment = new Comment();
-        $comment->setPost($post);
-        $form = $this->createForm('AppBundle\Form\CommentType', $comment);
-        $form->handleRequest($request);
-
-        $deleteForm = $this->createDeleteForm($post);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
-            $em->flush();
-
-            return $this->redirectToRoute('post_comments', ['id' => $post->getId()]);
-        }
-
-        return $this->render(
-            'post/new_comment.html.twig',
-            array(
-                'comments' => $comment,
-                'form' => $form->createView(),
-                'post' => $post,
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
-    }
 }
-
-
-

@@ -7,7 +7,9 @@ use AppBundle\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Post controller.
@@ -21,6 +23,8 @@ class PostController extends Controller
      *
      * @Route("/", name="_index")
      * @Method("GET")
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -47,15 +51,7 @@ class PostController extends Controller
 //        $dql = "SELECT a FROM AppBundle:Post a";
 //        $query = $em2->createQuery($dql);
 
-//        $paginator = $this->get('knp_paginator');
-//        $pagination = $paginator->paginate(
-//            $posts, /* query NOT result */
-//            $request->query->getInt('page', 1)/*page number*/,
-//            2/*limit per page*/
-//        );
-
         // parameters to template
-//        return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
         return $this->render(
             'post/index.html.twig',
             array(
@@ -69,6 +65,8 @@ class PostController extends Controller
      *
      * @Route("/post/new", name="post_new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -97,25 +95,19 @@ class PostController extends Controller
      * Finds and displays a post entity.
      *
      * @Route("/post/{id}", name="post_show")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      * @param Post $post
-     * @param Comment $comment
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function showAction(Post $post)
     {
         $deleteForm = $this->createDeleteForm($post);
-        $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository('AppBundle:Comment')->findBy(
-            ['post' => $post]
-        );
 
         return $this->render(
             'post/show_post.html.twig',
             array(
                 'post' => $post,
                 'delete_form' => $deleteForm->createView(),
-                'comments' => $comments,
             )
         );
     }
@@ -140,6 +132,9 @@ class PostController extends Controller
      *
      * @Route("/post/{id}/edit", name="post_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Post $post
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request, Post $post)
     {
