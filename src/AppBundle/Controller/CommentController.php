@@ -7,7 +7,10 @@ use AppBundle\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -21,7 +24,7 @@ class CommentController extends Controller
      *
      * @Method("GET")
      * @param Post $post
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function _shownCommentsAction(Post $post)
     {
@@ -41,11 +44,11 @@ class CommentController extends Controller
     /**
      * Creates a new comment entity
      *
-     * @Route("/post/{id}/new_comment", name="new_comment")
+     * @Route("/post/{id}/comment/new", name="new_comment")
      * @Method({"GET","POST"})
      * @param Request $request
      * @param Post $post
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function newCommentAction(Request $request, Post $post)
     {
@@ -80,7 +83,7 @@ class CommentController extends Controller
      *
      * @param Post $post The post entity
      *
-     * @return \Symfony\Component\Form\FormInterface The form
+     * @return FormInterface The form
      */
     private function createDeleteForm(Post $post)
     {

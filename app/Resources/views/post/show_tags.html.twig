@@ -1,0 +1,11 @@
+{% block tag %}
+
+    <div class="d-flex">
+        {% for tag in tags %}
+            <div class="ml-3">
+                <span class="badge badge-info">{{ tag.name }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

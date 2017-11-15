@@ -10,7 +10,10 @@
 
         {% block content %}
             <div class="post card bg-light m-3">
-                <h1 class="m-auto pt-3">{{ post.title }}</h1>
+                <h1 class="m-auto pt-3">{{ post.title }}
+                </h1>
+
+                {{ render(controller("AppBundle:Tag:_show",{"post": post})) }}
 
                 <p class="m-3">{{ post.content }}</p>
 

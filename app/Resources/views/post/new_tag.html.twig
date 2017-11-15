@@ -1,0 +1,34 @@
+{% extends 'post/show_post.html.twig' %}
+
+{% block header_button %}
+    <button class="btn btn-info my-2 my-sm-0" type="button">Posts</button>
+{% endblock %}
+
+{% block body %}
+
+    <main role="main" class="container d-flex flex-column">
+
+        {% block content %}
+
+            <div class="card bg-light m-3">
+                <h4 class="text-center mt-3 mr-3 ml-3">New Tag</h4>
+
+                {{ form_start(form, {'attr': {class: 'mr-3 ml-3 mt-2'}}) }}
+                <div class="form-group">
+
+                    <div class="d-flex justify-content-around mb-2">
+
+                        {{ form_label(form.name,"Tag name",{"label_attr": {"class": "col-2"}}) }}
+                        {{ form_widget(form.name) }}
+
+                    </div>
+
+                    <button type="submit" class="btn btn-success mt-3">Add tag</button>
+
+                </div>
+                {{ form_end(form) }}
+            </div>
+
+        {% endblock %}
+    </main>
+{% endblock %}

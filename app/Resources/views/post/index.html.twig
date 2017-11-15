@@ -14,16 +14,22 @@
 
             <div class="post card bg-light m-3">
 
-                <h3 class="post-header m-3">
+                <h3 class="post-header mt-2 ml-3 mb-2 mr-3">
                     {{ post.title }}
                 </h3>
-                <p class="post-content ml-3 mb-3">
+
+                {{ render(controller("AppBundle:Tag:_show",{"post":post})) }}
+
+                <p class="post-content m-3">
+
                     {% if post.content|length > 300 %}
                         {{ post.content|slice(0,300)~ "..." }}
+                    {% else %}
+                        {{ post.content }}
                     {% endif %}
                 </p>
                 <a href="{{ path('post_show', {'id': post.id}) }}">
-                    <button type="button" class="btn btn-sm btn-outline-info m-3">See more</button>
+                    <button type="button" class="btn btn-sm btn-outline-info mt-2 ml-3 mb-3 mr-3">See more</button>
                 </a>
             </div>
 
