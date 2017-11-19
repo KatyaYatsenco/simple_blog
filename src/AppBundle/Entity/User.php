@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +44,21 @@ class User
      * @ORM\OneToOne(targetEntity="Pet", mappedBy="user")
      */
     private $pet;
+
+    /**
+     * @var int
+     * @ORM\ManyToMany(targetEntity="PhoneNumber")
+     * @ORM\JoinTable(name="users_phone_numbers",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="phone_number_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $phoneNumbers;
+
+    public function __construct()
+    {
+        $this->phoneNumbers = new ArrayCollection();
+    }
 
     /**
      * @return string
