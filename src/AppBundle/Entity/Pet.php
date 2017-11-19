@@ -130,5 +130,12 @@ class Pet
 
         return $this;
     }
-}
 
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+}

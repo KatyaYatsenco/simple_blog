@@ -53,6 +53,16 @@ class UserGroup
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -67,13 +77,10 @@ class UserGroup
     }
 
     /**
-     * Get name
-     *
-     * @return string
+     * @return ArrayCollection
      */
-    public function getName()
+    public function getUsers(): ArrayCollection
     {
-        return $this->name;
+        return $this->users;
     }
 }
-

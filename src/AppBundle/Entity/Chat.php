@@ -94,4 +94,3 @@ class Chat
         return $this->createdAt;
     }
 }
-

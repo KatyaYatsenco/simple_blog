@@ -53,11 +53,18 @@ class Tag
     }
 
     /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
      * @param $post
      */
     public function setPost($post)
     {
         $this->post = $post;
     }
-
 }

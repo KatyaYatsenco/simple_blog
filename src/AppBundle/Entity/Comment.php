@@ -96,4 +96,12 @@ class Comment
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
 }

@@ -75,11 +75,44 @@ class User
      */
     private $user_groups;
 
+    /**
+     * Many Users have Many Users.
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="myFriends")
+     */
+    private $friendsWithMe;
+    /**
+     * Many Users have many Users.
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $myFriends;
+
     public function __construct()
     {
         $this->phoneNumbers = new ArrayCollection();
         $this->chats = new ArrayCollection();
         $this->user_groups = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFriendsWithMe()
+    {
+        return $this->friendsWithMe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMyFriends()
+    {
+        return $this->myFriends;
     }
 
     /**
@@ -104,5 +137,53 @@ class User
     public function getId(): string
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @return Pet
+     */
+    public function getPet(): Pet
+    {
+        return $this->pet;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPhoneNumbers(): int
+    {
+        return $this->phoneNumbers;
+    }
+
+    /**
+     * @return Chat
+     */
+    public function getChats(): Chat
+    {
+        return $this->chats;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserGroups(): ArrayCollection
+    {
+        return $this->user_groups;
     }
 }

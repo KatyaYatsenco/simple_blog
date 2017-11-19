@@ -40,6 +40,16 @@ class PhoneNumber
     }
 
     /**
+     * Get number
+     *
+     * @return int
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
      * Set number
      *
      * @param integer $number
@@ -51,16 +61,6 @@ class PhoneNumber
         $this->number = $number;
 
         return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return int
-     */
-    public function getNumber()
-    {
-        return $this->number;
     }
 }
 
