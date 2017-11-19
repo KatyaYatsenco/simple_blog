@@ -66,10 +66,20 @@ class User
      */
     private $chats;
 
+    /**
+     * @var ArrayCollection
+     *
+     * Many Users have Many UserGroups.
+     * @ORM\ManyToMany(targetEntity="UserGroup", inversedBy="users")
+     * @ORM\JoinTable(name="users_groups")
+     */
+    private $user_groups;
+
     public function __construct()
     {
         $this->phoneNumbers = new ArrayCollection();
         $this->chats = new ArrayCollection();
+        $this->user_groups = new ArrayCollection();
     }
 
     /**
