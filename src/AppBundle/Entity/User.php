@@ -31,6 +31,14 @@ class User
     private $posts;
 
     /**
+     * @var string
+     *
+     * @ORM\OneToOne(targetEntity="Photo")
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
+     */
+    private $photo;
+
+    /**
      * @return string
      */
     public function getName(): string
