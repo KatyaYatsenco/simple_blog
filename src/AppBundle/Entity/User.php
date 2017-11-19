@@ -55,9 +55,21 @@ class User
      */
     private $phoneNumbers;
 
+    /**
+     * @var Chat
+     * Many Users have Many Chats.
+     * @ORM\ManyToMany(targetEntity="Chat")
+     * @ORM\JoinTable(name="users_chats",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="chat_id", referencedColumnName="id")}
+     *      )
+     */
+    private $chats;
+
     public function __construct()
     {
         $this->phoneNumbers = new ArrayCollection();
+        $this->chats = new ArrayCollection();
     }
 
     /**
