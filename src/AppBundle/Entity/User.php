@@ -39,6 +39,12 @@ class User
     private $photo;
 
     /**
+     * @var Pet
+     * @ORM\OneToOne(targetEntity="Pet", mappedBy="user")
+     */
+    private $pet;
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -53,7 +59,6 @@ class User
     {
         $this->name = $name;
     }
-
 
     /**
      * @return string
